@@ -2,20 +2,42 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@font-face {
+    font-family: "SF Pro Display";
+    src: url("/fonts/sf-pro-display/SF-Pro-Display-Light.otf") format("opentype");
+    font-weight: 200;
+    font-style: normal;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+@font-face {
+    font-family: "SF Pro Display";
+    src: url("/fonts/sf-pro-display/SF-Pro-Display-Ultralight.otf") format("opentype");
+    font-weight: 100;
+    font-style: normal;
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+@font-face {
+    font-family: "SF Pro Display";
+    src: url("/fonts/sf-pro-display/SF-Pro-Display-Regular.otf") format("opentype");
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "SF Pro Display";
+    src: url("/fonts/sf-pro-display/SF-Pro-Display-Bold.otf") format("opentype");
+    font-weight: 700;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "SF Pro Display";
+    src: url("/fonts/sf-pro-display/SF-Pro-Display-Medium.otf") format("opentype");
+    font-weight: 500;
+    font-style: normal;
+}
+
+.icon {
+    --tw-border-opacity: 1;
+    color: rgb(255 232 174 / var(--tw-border-opacity, 1));;
 }
