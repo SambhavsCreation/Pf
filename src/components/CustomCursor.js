@@ -59,8 +59,6 @@ export default function CustomCursor() {
                 wobble.current = false;
                 rubberBandTimeout.current = false;
             }
-
-
         };
 
         window.addEventListener('mousemove', handleMouseMove);

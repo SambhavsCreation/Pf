@@ -1,7 +1,8 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import {useContext, useEffect, useRef} from "react";
 import Image from "next/image";
+import {CursorContext} from "@/components/CursorContext";
 
 const PageSection = () => {
     const sectionRef = useRef(null);
@@ -104,6 +105,48 @@ const PageSection = () => {
 };
 
 const SectionElement = ({ imgSrc, heading, description, hoverText, isLast }) => {
+    const { setCursorTarget } = useContext(CursorContext);
+    const circleRef = useRef(null);
+
+    // Handle mouse entering the circular background
+    const handleMouseEnter = () => {
+        if (circleRef.current) {
+            const rect = circleRef.current.getBoundingClientRect();
+            const centerX = rect.left + rect.width / 2;
+            const centerY = rect.top + rect.height / 2;
+            setCursorTarget({ x: centerX, y: centerY });
+        }
+    };
+
+    // Handle mouse leaving the circular background
+    const handleMouseLeave = () => {
+        setCursorTarget(null);
+        // Reset transformations for reactivity
+        if (circleRef.current) {
+            circleRef.current.style.transform = `translate(0px, 0px)`;
+            circleRef.current.style.transition = `transform 0.3s ease`;
+        }
+    };
+
+    // Handle mouse movement within the circular background for reactivity
+    const handleMouseMove = (e) => {
+        if (circleRef.current) {
+            const rect = circleRef.current.getBoundingClientRect();
+            const circleX = rect.left + rect.width / 2;
+            const circleY = rect.top + rect.height / 2;
+
+            const deltaX = e.clientX - circleX;
+            const deltaY = e.clientY - circleY;
+
+            // Calculate movement with a limited range for subtle effect
+            const moveX = (deltaX / rect.width) * 10; // Adjust multiplier as needed
+            const moveY = (deltaY / rect.height) * 10;
+
+            circleRef.current.style.transform = `translate(${moveX}px, ${moveY}px)`;
+            circleRef.current.style.transition = `transform 0.1s ease`;
+        }
+    };
+
     return (
         <div className="flex-shrink-0 w-[300px] md:w-[32rem] relative text-center flex flex-col items-center justify-center">
             {/* Round Image with group class */}
@@ -111,16 +154,29 @@ const SectionElement = ({ imgSrc, heading, description, hoverText, isLast }) => 
                 className="relative w-96 h-96 md:w-[32rem] md:h-[32rem] rounded-full overflow-hidden flex-shrink-0 group"
                 tabIndex="0"
                 aria-label={`${heading} Image`}
+                onMouseEnter={handleMouseEnter}
+                onMouseLeave={handleMouseLeave}
+                onMouseMove={handleMouseMove}
             >
                 <Image
                     src={imgSrc}
                     alt={heading}
                     fill
                     style={{ objectFit: "cover" }}
-                    className="transition-opacity duration-300"
+                    className="transition-all duration-300 transform group-hover:scale-105"
+                    /*
+                        Explanation of Classes:
+                        - transition-all: Applies transitions to all properties.
+                        - duration-300: Sets the transition duration to 300ms.
+                        - transform: Enables transformation (required for scale).
+                        - group-hover:scale-105: Scales the image to 105% on hover.
+                    */
                 />
                 {/* Hover Overlay */}
-                <div className="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 group-focus:opacity-100 transition-opacity duration-500 flex items-center justify-center">
+                <div
+                    ref={circleRef}
+                    className="absolute inset-0 bg-black bg-opacity-0 opacity-0 group-hover:bg-opacity-20 group-hover:opacity-100 group-focus:opacity-100 transition-opacity duration-500 flex items-center justify-center"
+                >
                     <span className="text-lg font-medium text-black bg-gold rounded-full w-36 h-36 flex items-center justify-center">
                         {hoverText}
                     </span>
@@ -140,5 +196,6 @@ const SectionElement = ({ imgSrc, heading, description, hoverText, isLast }) => 
         </div>
     );
 };
+
 
 export default PageSection;
