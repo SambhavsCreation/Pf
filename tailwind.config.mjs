@@ -10,12 +10,16 @@ export default {
   ],
   theme: {
     extend: {
+      screens: {
+        phone: { max: '640px' }, // Define a custom max breakpoint for phones
+      },
       transitionProperty: {
         'transform': 'transform',
       },
       animation: {
         'spin-horizontal': 'spin-horizontal 8s linear infinite', // Horizontal spinning effect
         rotate: 'rotate 20s linear infinite',
+        fadeInUp: 'fadeInUp 1s ease-out forwards',
       },
       keyframes: {
         'spin-horizontal': {
@@ -26,6 +30,10 @@ export default {
           from: { transform: 'rotate(0deg)' },
           to: { transform: 'rotate(360deg)' },
         },
+        fadeInUp: {
+          '0%': { opacity: 0, transform: 'translateY(20px)' },
+          '100%': { opacity: 1, transform: 'translateY(0)' },
+        },
       },
       backdropBlur: {
         xs: '2px',
@@ -35,11 +43,17 @@ export default {
       },
       fontFamily: {
         sans: ['"SF Pro Display"', 'system-ui', 'sans-serif'],
+        // sans: ['Inter', 'sans-serif'],
+        // inter: ['Inter', 'sans-serif'],
       },
       colors: {
-        gold: "#ffe8ae"
+        gold: "#ffe8ae",
+        darkGold: "#b5a36a"
       }
     },
   },
-  plugins: [],
+  plugins: [
+    require('tailwind-scrollbar'),
+    // ...
+  ],
 }

@@ -7,6 +7,7 @@ import Card from "@/components/ImageCard";
 import AbstractOne from "../../public/abstractArtOne.webp"
 import CardCarousel from "@/components/CardSection";
 import SecondPageSection from "@/components/SecondPageSection";
+import ContactMe from "@/components/ContactMe";
 
 export default function Home() {
     const secondSectionRef = useRef(null);
@@ -62,6 +63,7 @@ export default function Home() {
             <div className="h-[70vh] bg-black flex items-center justify-center relative">
                 <CardCarousel/>
             </div>
+
         </div>
     );
 }

@@ -41,3 +41,7 @@
     --tw-border-opacity: 1;
     color: rgb(255 232 174 / var(--tw-border-opacity, 1));;
 }
+
+.cursor-shrunk {
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}

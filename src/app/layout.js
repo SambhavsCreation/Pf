@@ -4,6 +4,7 @@ import Navbar from "@/components/Navbar";
 import CustomCursor from "@/components/CustomCursor";
 import TopNavbar from "@/components/TopNavbar";
 import { CursorProvider } from '@/components/CursorContext';
+import ContactMe from "@/components/ContactMe";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -24,14 +25,23 @@ export default function RootLayout({ children }) {
   return (
       <CursorProvider>
             <html lang="en">
-              <body
-                className={`${geistSans.variable} ${geistMono.variable} antialiased bg-black`}
+            <head>
+              <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+                    rel="stylesheet"/>
+              <title>tmkc</title>
+            </head>
+            <body
+                className={`${geistSans.variable} ${geistMono.variable} antialiased bg-black overflow-x-hidden`}
               >
                 <TopNavbar />
                 <CustomCursor></CustomCursor>
                 {children}
+                <div className="h-[30vh]"></div>
+                <div className="bg-black">
+                    <ContactMe></ContactMe>
+                </div>
                 <Navbar />
-              </body>
+            </body>
             </html>
       </CursorProvider>
   );

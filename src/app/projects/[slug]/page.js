@@ -8,7 +8,6 @@ const projectsDirectory = path.join(process.cwd(), "content/projects");
 
 export async function generateStaticParams() {
     const fileNames = fs.readdirSync(projectsDirectory);
-    console.log("Generated slugs:", fileNames.map((fileName) => fileName.replace(/\.md$/, "")));
     return fileNames.map((fileName) => ({
         slug: fileName.replace(/\.md$/, ""), // Remove .md extension
     }));
@@ -35,7 +34,6 @@ export async function generateMetadata({ params }) {
 }
 
 export default async function ProjectPage({ params }) {
-    console.log(params);
     const filePath = path.join(projectsDirectory, `${params.slug}.md`);
     const fileContents = fs.readFileSync(filePath, "utf8");
     const { data, content } = matter(fileContents);
