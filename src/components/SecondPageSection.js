@@ -1,8 +1,8 @@
 "use client";
 
-import {useContext, useEffect, useRef} from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import {CursorContext} from "@/components/CursorContext";
+import { CursorContext } from "@/components/CursorContext";
 
 const PageSection = () => {
     const sectionRef = useRef(null);
@@ -28,8 +28,6 @@ const PageSection = () => {
         };
     }, []);
 
-
-    // Define your section elements data
     const sections = [
         {
             imgSrc: "/abstractArtOne.webp",
@@ -58,26 +56,20 @@ const PageSection = () => {
     ];
 
     return (
-        /**
-         * h-[300vh] gives the page enough vertical space
-         * to allow vertical scrolling so we can map it to horizontal.
-         */
         <section
             ref={sectionRef}
             className="relative w-full h-[300vh] bg-black border-gold"
             style={{ borderBottomWidth: "1px", borderTopWidth: "1px" }}
         >
-            {/**
-             * The sticky container remains fixed in the viewport
-             * while the user scrolls through the parent <section>.
-             */}
             <div className="sticky top-0 w-full h-screen overflow-hidden flex">
                 {/* Left Side: Big Text */}
                 <div
                     className="w-1/3 h-screen px-6 md:px-12 flex flex-col justify-center border-gold"
                     style={{ borderRightWidth: "1px" }}
                 >
-                    <h1 className="text-6xl md:text-7xl font-thin text-gold tracking-wide">Projects</h1>
+                    <h1 className="text-6xl md:text-7xl font-thin text-gold tracking-wide">
+                        Projects
+                    </h1>
                 </div>
 
                 {/* Horizontal Scroll Container */}
@@ -104,14 +96,12 @@ const PageSection = () => {
 const SectionElement = ({ imgSrc, heading, description, hoverText, isLast }) => {
     const { setCursorTarget, setLockedElement } = useContext(CursorContext);
     const circleRef = useRef(null);
+    const [isHovered, setIsHovered] = useState(false);
 
     const handleMouseEnter = () => {
+        setIsHovered(true);
         if (circleRef.current) {
-            // 1) Let the custom cursor know we "locked" onto this element
             setLockedElement(circleRef.current);
-
-            // 2) Optionally set a one-time cursorTarget immediately,
-            //    so the cursor “jumps” to center right away.
             const rect = circleRef.current.getBoundingClientRect();
             const centerX = rect.left + rect.width / 2;
             const centerY = rect.top + rect.height / 2;
@@ -120,12 +110,9 @@ const SectionElement = ({ imgSrc, heading, description, hoverText, isLast }) => 
     };
 
     const handleMouseLeave = () => {
-        // Free the cursor from this locked element
+        setIsHovered(false);
         setLockedElement(null);
-        // Reset your manual XY target, if desired
         setCursorTarget(null);
-
-        // Reset transformations for the reactive movement
         if (circleRef.current) {
             circleRef.current.style.transform = "translate(0px, 0px)";
             circleRef.current.style.transition = "transform 0.3s ease";
@@ -133,64 +120,106 @@ const SectionElement = ({ imgSrc, heading, description, hoverText, isLast }) => 
     };
 
     const handleMouseMove = (e) => {
-        // If you want the gold overlay to do a small "push" effect
         if (circleRef.current) {
             const rect = circleRef.current.getBoundingClientRect();
             const circleX = rect.left + rect.width / 2;
             const circleY = rect.top + rect.height / 2;
-
             const deltaX = e.clientX - circleX;
             const deltaY = e.clientY - circleY;
-
             const moveX = (deltaX / rect.width) * 10;
             const moveY = (deltaY / rect.height) * 10;
-
             circleRef.current.style.transform = `translate(${moveX}px, ${moveY}px)`;
             circleRef.current.style.transition = "transform 0.1s ease";
         }
     };
 
     return (
-        <div className="flex-shrink-0 w-[300px] md:w-[32rem] relative text-center flex flex-col items-center justify-center">
-            <div
-                className="relative w-96 h-96 md:w-[32rem] md:h-[32rem] rounded-full overflow-hidden flex-shrink-0 group"
-                tabIndex="0"
-                aria-label={`${heading} Image`}
-                onMouseEnter={handleMouseEnter}
-                onMouseLeave={handleMouseLeave}
-                onMouseMove={handleMouseMove}
-            >
-                <Image
-                    src={imgSrc}
-                    alt={heading}
-                    fill
-                    style={{ objectFit: "cover" }}
-                    className="transition-opacity duration-300"
-                />
+        <>
+            <div className="flex-shrink-0 w-[300px] md:w-[32rem] relative text-center flex flex-col items-center justify-center">
                 <div
-                    ref={circleRef}
-                    data-circle-overlay="true"
-                    className="absolute inset-0 bg-black bg-opacity-50 opacity-0
-                     group-hover:opacity-100 group-focus:opacity-100
-                     transition-opacity duration-500 flex items-center justify-center
-                     md:w-[32rem] md:h-[32rem]
-                     z-[20]" // If you want the cursor behind it
+                    className="relative w-96 h-96 md:w-[32rem] md:h-[32rem] rounded-full overflow-hidden flex-shrink-0 group"
+                    tabIndex="0"
+                    aria-label={`${heading} Image`}
+                    onMouseEnter={handleMouseEnter}
+                    onMouseLeave={handleMouseLeave}
+                    onMouseMove={handleMouseMove}
                 >
-          <span className="text-lg font-medium text-black bg-gold rounded-full w-36 h-36 flex items-center justify-center">
-            {hoverText}
-          </span>
+                    <Image
+                        src={imgSrc}
+                        alt={heading}
+                        fill
+                        style={{ objectFit: "cover" }}
+                        className="transition-transform duration-500 group-hover:scale-110"
+                    />
+                    <div
+                        ref={circleRef}
+                        data-circle-overlay="true"
+                        className="absolute inset-0 bg-[rgba(0,0,0,0)] group-hover:bg-[rgba(0,0,0,0.2)] transition-colors duration-500 flex items-center justify-center md:w-[32rem] md:h-[32rem] z-[20]"
+                    >
+            <span
+                className={`learn-more text-lg font-medium text-black bg-gold rounded-full w-36 h-36 flex items-center justify-center transition-all duration-100 ${
+                    isHovered ? "animate-bounce-expand" : "animate-bounce-collapse"
+                }`}
+            >
+              {hoverText}
+            </span>
+                    </div>
                 </div>
-            </div>
 
-            <div className="mt-6 flex flex-col items-center">
-                <h2 className="text-2xl md:text-4xl font-semibold text-gold">{heading}</h2>
-                <p className="text-lg md:text-xl text-gray-400">{description}</p>
-            </div>
+                <div className="mt-6 flex flex-col items-center">
+                    <h2 className="text-2xl md:text-4xl font-semibold text-gold">
+                        {heading}
+                    </h2>
+                    <p className="text-lg md:text-xl text-gray-400">{description}</p>
+                </div>
 
-            {!isLast && (
-                <div className="absolute top-0 right-[-48px] w-px bg-gold h-full pointer-events-none"></div>
-            )}
-        </div>
+                {!isLast && (
+                    <div className="absolute top-0 right-[-48px] w-px bg-gold h-full pointer-events-none"></div>
+                )}
+            </div>
+            <style jsx>{`
+                .learn-more {
+                    transform: scale(0);
+                    opacity: 0;
+                }
+                @keyframes bounce-expand {
+                    0% {
+                        transform: scale(0);
+                        opacity: 0;
+                    }
+                    10% {
+                        opacity: 1;
+                    }
+                    40% {
+                        transform: scale(1.02);
+                    }
+                    100% {
+                        transform: scale(1);
+                        opacity: 1;
+                    }
+                }
+                @keyframes bounce-collapse {
+                    0% {
+                        transform: scale(1);
+                        opacity: 1;
+                    }
+                    40% {
+                        transform: scale(0);
+                        opacity: 0;
+                    }
+                    100% {
+                        transform: scale(0);
+                        opacity: 0;
+                    }
+                }
+                .animate-bounce-expand {
+                    animation: bounce-expand 0.2s ease-in-out forwards;
+                }
+                .animate-bounce-collapse {
+                    animation: bounce-collapse 0.2s ease-in-out forwards;
+                }
+            `}</style>
+        </>
     );
 };
 

@@ -23,9 +23,7 @@ export default function MainSectionFrontPage() {
 
                 {/* Paragraph Below Heading */}
                 <p className="mt-4 text-lg md:text-xl max-w-2xl text-center font-light leading-relaxed tracking-wide">
-                    I am a passionate developer with a keen interest in building scalable web applications.
-                    My expertise lies in modern JavaScript frameworks and creating intuitive user experiences.
-                    Let's connect and build something!
+                    I am a software and game developer, as well as a business partner at ArtigenceMeta. Based in Helsinki, I often find myself in LA and North India as well. In my free time, I enjoy playing chess, scaling mountains, and boxing.
                 </p>
             </div>
 

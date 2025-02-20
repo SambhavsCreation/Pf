@@ -8,16 +8,18 @@ const Card = ({
                   altText = 'Logo',
               }) => {
     return (
-        <div className="relative overflow-hidden rounded-md shadow-lg group cursor-pointer " style={{ width: '20rem', height: '28rem' }}>
+        <div
+            className="relative overflow-hidden rounded-md shadow-lg group cursor-pointer"
+            style={{ width: '20rem', height: '28rem' }}
+        >
             {/* Background Image */}
             <div
                 className="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110"
                 style={{ backgroundImage: `url(${backgroundImage})` }}
             ></div>
 
-            {/* Overlay for better text visibility */}
-            <div className="absolute inset-0 bg-black bg-opacity-30 transition-transform duration-500 group-hover:scale-110"></div>
-
+            {/* Remove black overlay to ensure no tint */}
+            <div className="absolute inset-0 bg-black bg-opacity-20 transition-transform duration-500 group-hover:scale-110" />
             {/* Content */}
             <div className="relative flex items-center justify-center h-full p-6">
                 {/* Logo (conditionally rendered) */}
@@ -38,7 +40,7 @@ const Card = ({
             </div>
 
             {/* Bottom Right Text */}
-            <div className="absolute bottom-4 right-4 text-white z-10">
+            <div className="absolute bottom-4 right-4 left-4 text-white z-10 text-right ">
                 {bottomRightText}
             </div>
         </div>

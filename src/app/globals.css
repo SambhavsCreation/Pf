@@ -45,3 +45,7 @@
 .cursor-shrunk {
     transition: transform 0.3s ease, opacity 0.3s ease;
 }
+
+.group:hover .learn-more {
+    animation: bounce-expand 0.6s ease-out forwards;
+}
