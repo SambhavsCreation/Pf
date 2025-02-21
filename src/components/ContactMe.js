@@ -8,7 +8,12 @@ import {
     FaLinkedin,
 } from 'react-icons/fa';
 import { HiArrowUpRight } from "react-icons/hi2";
-import NostrIcon from './NostrIcon'; // Import the custom Nostr icon
+import NostrIcon from './../../public/nostrLogo.png'; // Import the custom Nostr icon
+
+const Nostr = ({ size = 24 }) => {
+    return <img src="/nostrLogo.svg" alt="icon" width={size} height={size} />;
+};
+
 
 const ContactMe = () => {
     return (
@@ -32,11 +37,11 @@ const ContactMe = () => {
                 <div className="mb-8">
                     <h3 className="text-2xl mb-2">Email</h3>
                     <a
-                        href="mailto:your-email@example.com"
+                        href="mailto:sambhav.sharma@aalto.fi"
                         className="text-lg text-gold hover:text-darkGold transition underline"
                         style={{textUnderlineOffset: '3px'}}
                     >
-                        your-email@example.com
+                        sambhav.sharma@aalto.fi
                     </a>
                 </div>
 
@@ -72,13 +77,13 @@ const ContactMe = () => {
                             </Link>
                         </li>
                         <li>
-                            <Link
-                                href="/tutorials"
+                            <a
+                                href="https://www.goodreads.com/review/list/175884844?shelf=recommended"
                                 className="inline-flex items-center text-lg hover:text-darkGold transition duration-200 border-b border-current leading-none"
                             >
                                 <span>Books I suggest</span>
                                 <HiArrowUpRight className="ml-2"/>
-                            </Link>
+                            </a>
                         </li>
                         {/* Add more links as needed */}
                     </ul>
@@ -88,7 +93,7 @@ const ContactMe = () => {
                 <div className="flex space-x-6 group ">
                     {/* Twitter */}
                     <a
-                        href="https://twitter.com/yourusername"
+                        href="https://x.com/leviathan77x"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="w-12 h-12 flex items-center justify-center border border-gold hover:border-darkGold hover:text-darkGold rounded-full transition"
@@ -99,7 +104,7 @@ const ContactMe = () => {
 
                     {/* GitHub */}
                     <a
-                        href="https://github.com/yourusername"
+                        href="https://github.com/SambhavsCreation"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="w-12 h-12 flex items-center justify-center border border-gold hover:border-darkGold hover:text-darkGold rounded-full  transition"
@@ -110,7 +115,7 @@ const ContactMe = () => {
 
                     {/* LinkedIn */}
                     <a
-                        href="https://linkedin.com/in/yourusername"
+                        href="https://www.linkedin.com/in/sambhav-sharma-79a956236/"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="w-12 h-12 flex items-center justify-center border border-gold hover:border-darkGold hover:text-darkGold rounded-full transition"
@@ -121,13 +126,13 @@ const ContactMe = () => {
 
                     {/* Nostr */}
                     <a
-                        href="https://nostr.example.com/yourprofile" // Replace with your actual Nostr profile link
+                        href="https://primal.net/p/npub1lx5r90csjn68ryunj26k7fjparyuuqsrkjupyefwzy6rct0zsxuszs5xg4" // Replace with your actual Nostr profile link
                         target="_blank"
                         rel="noopener noreferrer"
                         className="w-12 h-12 flex items-center justify-center border border-gold hover:border-darkGold hover:text-darkGold rounded-full transition"
                         aria-label="Nostr"
                     >
-                        <NostrIcon size={24} />
+                        <Nostr size={130} />
                     </a>
                 </div>
             </div>

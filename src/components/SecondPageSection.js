@@ -30,27 +30,27 @@ const PageSection = () => {
 
     const sections = [
         {
-            imgSrc: "/abstractArtOne.webp",
-            heading: "Heading 1",
-            description: "This is a short description for the first element.",
+            imgSrc: "/abstractArtFourteen.webp",
+            heading: "Aria AI",
+            description: "Unreal Engine and GPT based Chatbot.",
             hoverText: "Learn more",
         },
         {
-            imgSrc: "/abstractArtTwo.webp",
-            heading: "Heading 2",
-            description: "This is a short description for the second element.",
+            imgSrc: "/abstractArtEight.jpeg",
+            heading: "Fast Shooter",
+            description: "Unreal Engine and Solidity based PvP.",
             hoverText: "Learn more",
         },
         {
-            imgSrc: "/abstractArtThree.webp",
-            heading: "Heading 3",
-            description: "This is a short description for the third element.",
+            imgSrc: "/abstractArtNine.jpeg",
+            heading: "Thetasploit",
+            description: "Replication of Metasploit, built in C++.",
             hoverText: "Learn more",
         },
         {
-            imgSrc: "/abstractArtFour.webp",
-            heading: "Heading 4",
-            description: "This is a short description for the fourth element.",
+            imgSrc: "/abstractArtTen.jpeg",
+            heading: "Literature Transformer",
+            description: "English Literature Transformer built in Cuda from scratch.",
             hoverText: "Learn more",
         },
     ];
